@@ -11,23 +11,23 @@ const GlobalRoom = () => {
 //   const history = useHistory();
   const [roomId, setRoomId] = useState("");
 
-  useEffect(() => {
-    socket.on("match", (data) => {
-      setRoomId(data.roomId);
-      history.push(`/room/${data.roomId}`);
-    });
+  // useEffect(() => {
+  //   socket.on("match", (data) => {
+  //     setRoomId(data.roomId);
+  //     history.push(`/room/${data.roomId}`);
+  //   });
 
-    socket.emit("joinGlobalRoom");
+  //   socket.emit("joinGlobalRoom");
 
-    return () => socket.off("match");
-  }, [history]);
+  //   return () => socket.off("match");
+  // }, []);
 
   return (
     <Container>
-      <Box mt={8}>
+      {/* <Box mt={8}>
         <Typography variant="h4">Global Room</Typography>
         <Typography variant="h6">Searching for an opponent...</Typography>
-      </Box>
+      </Box> */}
     </Container>
   );
 };

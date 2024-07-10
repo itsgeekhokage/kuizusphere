@@ -9,6 +9,7 @@ import CreateRoom from "./components/Dashboard/CreateRoom";
 import JoinRoom from "./components/Dashboard/JoinRoom";
 import Room from "./components/Room/Room";
 import GlobalRoom from "./components/GlobalRoom/GlobalRoom";
+import Welcome from "./components/Dashboard/Welcome";
 
 function App() {
   return (
@@ -17,35 +18,35 @@ function App() {
         <Route path="/" element={<Home/>}></Route>
         <Route
           path="/login"
-          component={Login}
+          element={<Login/>}
         />
         <Route
           path="/register"
-          component={Register}
+          element={<Register/>}
         />
         <Route
           path="/home"
-          component={Home}
+          element={<Home/>}
         />
         <Route
           path="/create-room"
-          component={CreateRoom}
+          element={<CreateRoom/>}
         />
         <Route
           path="/join-room"
-          component={JoinRoom}
+          element={<JoinRoom/>}
         />
         <Route
           path="/room/:id"
-          component={Room}
+          element={<Room/>}
         />
         <Route
           path="/global-room"
-          component={GlobalRoom}
+          element={<GlobalRoom/>}
         />
         <Route
           path="/"
-          component={Login}
+          element={<Login/>}
         />
       </Routes>
     </Router>

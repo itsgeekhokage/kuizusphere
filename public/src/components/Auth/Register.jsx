@@ -34,7 +34,7 @@ const Register = () => {
     <Container
       component="main"
       maxWidth="xs">
-      <Box mt={8}>
+      {/* <Box mt={8}>
         <Typography
           component="h1"
           variant="h5">
@@ -89,7 +89,7 @@ const Register = () => {
             Register
           </Button>
         </form>
-      </Box>
+      </Box> */}
     </Container>
   );
 };

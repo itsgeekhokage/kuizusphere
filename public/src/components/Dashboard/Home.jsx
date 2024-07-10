@@ -1,32 +1,34 @@
 /** @format */
 
 import React from "react";
-import { Container, Typography, Button, Box } from "@mui/material";
-// import { useHistory } from "react-router-dom";
+import { Container, Typography, Button, Box, IconButton } from "@mui/material";
+import {AccountCircle} from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-//   const history = useHistory();
-
+  const navigate = useNavigate();
   const handleCreateRoom = () => {
-    history.push("/create-room");
+    navigate("/create-room");
   };
 
   const handleJoinRoom = () => {
-    history.push("/join-room");
+    navigate("/join-room");
   };
 
   const handleGlobalRoom = () => {
-    history.push("/global-room");
+    navigate("/global-room");
   };
 
   return (
-    <Container>
-      <Box mt={8}>
+    <Container sx={{width : "100vw"}}>
+      <Box sx={{display : "flex", justifyContent : "space-between"}}>
         <Typography
           variant="h4"
           gutterBottom>
           Dashboard
         </Typography>
+        <Box> <IconButton> <AccountCircle fontSize="2rem" />  </IconButton> </Box>
+      </Box>
         <Button
           variant="contained"
           color="primary"
@@ -45,12 +47,11 @@ const Home = () => {
         </Button>
         <Button
           variant="contained"
-          color="default"
+          color="info"
           fullWidth
           onClick={handleGlobalRoom}>
           Global Room
         </Button>
-      </Box>
     </Container>
   );
 };

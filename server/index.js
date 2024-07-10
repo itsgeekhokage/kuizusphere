@@ -1,47 +1,34 @@
+// server.js
+
 import express from 'express';
-import mongoose from 'mongoose';
 import cors from 'cors';
-import { MONGO_URI } from './config.js';
-import authRoutes from './routes/auth.js';
-import roomRoutes from './routes/room.js';
-import quizRoutes from './routes/quiz.js';
+import mongoose from 'mongoose';
+import config from './config/config.js';
+import authRouter from './routes/auth.js';
+import roomRouter from './routes/rooms.js';
+import quizRouter from './routes/quizzes.js';
+import profileRouter from './routes/profile.js';
 
 const app = express();
+const PORT = process.env.PORT || 5000;
 
-mongoose.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => console.log('MongoDB connected'))
-    .catch((error) => console.log('MongoDB connection error:', error));
-
+// Middleware
 app.use(cors());
 app.use(express.json());
 
-app.use('/api/auth', authRoutes);
-app.use('/api/rooms', roomRoutes);
-app.use('/api/quizzes', quizRoutes);
+// MongoDB Connection
+mongoose.connect(config.mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+    .then(() => console.log('MongoDB connected'))
+    .catch(err => console.error(err));
 
-const server = app.listen(5000, () => {
-    console.log('Server is running on port 5000');
-});
+// Routes
+app.use('/api/auth', authRouter);
+app.use('/api/rooms', roomRouter);
+app.use('/api/quizzes', quizRouter);
+app.use('/api/profile', profileRouter);
 
-import { Server } from 'socket.io';
-const io = new Server(server, {
-    cors: {
-        origin: '*',
-    },
-});
-
-io.on('connection', (socket) => {
-    console.log('New client connected');
-
-    socket.on('joinGlobalRoom', () => {
-        // Matchmaking logic here
-    });
-
-    socket.on('answer', (data) => {
-        io.emit('answer', data);
-    });
-
-    socket.on('disconnect', () => {
-        console.log('Client disconnected');
-    });
-});
+// Start server
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

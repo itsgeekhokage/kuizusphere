@@ -3,19 +3,20 @@
 import React, { useState } from "react";
 import { Container, Typography, TextField, Button, Box } from "@mui/material";
 import axios from "axios";
-// import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const CreateRoom = () => {
   const [roomName, setRoomName] = useState("");
   const [error, setError] = useState("");
-//   const history = useHistory();
+
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       const response = await axios.post("/api/rooms", { name: roomName });
       console.log(response.data);
-      history.push(`/room/${response.data.room._id}`);
+      navigate(`/room/${response.data.room._id}`);
     } catch (err) {
       setError(err.response.data.message);
     }
