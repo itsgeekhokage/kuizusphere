@@ -10,6 +10,7 @@ import JoinRoom from "./components/Dashboard/JoinRoom";
 import Room from "./components/Room/Room";
 import GlobalRoom from "./components/GlobalRoom/GlobalRoom";
 import Welcome from "./components/Dashboard/Welcome";
+import MainQuiz from "./components/quiz/MainQuiz";
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
           path="/room/:id"
           element={<Room/>}
         />
+        <Route path="/quiz-room" element={<MainQuiz/>}></Route>
         <Route
           path="/global-room"
           element={<GlobalRoom/>}
