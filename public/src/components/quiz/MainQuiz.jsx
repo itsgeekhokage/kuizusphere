@@ -3,8 +3,10 @@
 import React, { useState } from "react";
 import { Box, Button, Typography, Pagination, Avatar } from "@mui/material";
 import Question from "./Question";
+import { useNavigate } from "react-router-dom";
 
 const MainQuiz = () => {
+  const navigate = useNavigate();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState(Array(5).fill(null));
   const [markedForReview, setMarkedForReview] = useState(Array(5).fill(false));
@@ -90,7 +92,13 @@ const MainQuiz = () => {
         justifyContent: "space-around",
       }}>
       <Box>
-        <Box sx={{display : "flex", flexDirection : "column", gap : "1.5vw"}}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "2vw",
+            width: "60vw",
+          }}>
           <Box sx={{ display: "flex", justifyContent: "center", mt: 2 }}>
             <Pagination
               count={questions.length}
@@ -122,6 +130,14 @@ const MainQuiz = () => {
                 Previous
               </Button>
             )}
+            <Button
+              variant="outlined"
+              color="warning"
+              onClick={handleMarkForReview}>
+              {markedForReview[currentQuestion]
+                ? "Unmark for Review"
+                : "Mark for Review"}
+            </Button>
             {currentQuestion < questions.length && (
               <Button
                 variant="contained"
@@ -131,46 +147,52 @@ const MainQuiz = () => {
               </Button>
             )}
           </Box>
-          <Box sx={{ display: "flex", justifyContent: "space-between", mt: 2 }}>
-            <Button
-              variant="outlined"
-              color="warning"
-              onClick={handleMarkForReview}>
-              {markedForReview[currentQuestion]
-                ? "Unmark for Review"
-                : "Mark for Review"}
-            </Button>
-          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              mt: 2,
+            }}></Box>
         </Box>
       </Box>
+
       <Box
         sx={{
           display: "flex",
-          justifyContent: "center",
-          mt: 2,
+          flexDirection: "column",
           borderLeft: "2px dotted grey",
-          flexWrap: "wrap",
           padding: 3,
         }}>
-        {answers.map((answer, index) => (
-          <Avatar
-            key={index}
-            variant="body2"
-            sx={{
-              backgroundColor:
-                answer !== null
-                  ? "green"
-                  : markedForReview[index]
-                  ? "orange"
-                  : "red",
-              mx: 0.5,
-              height: "2vw",
-              width: "2vw",
-              borderRadius: "50%",
-            }}>
-            {index + 1}
-          </Avatar>
-        ))}
+        <Button variant="contained" onClick={()=>navigate("/submit")}>
+          Submit
+        </Button>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            mt: 2,
+            flexWrap: "wrap",
+          }}>
+          {answers.map((answer, index) => (
+            <Avatar
+              key={index}
+              variant="body2"
+              sx={{
+                backgroundColor:
+                  answer !== null
+                    ? "green"
+                    : markedForReview[index]
+                    ? "orange"
+                    : "red",
+                mx: 0.5,
+                height: "2vw",
+                width: "2vw",
+                borderRadius: "50%",
+              }}>
+              {index + 1}
+            </Avatar>
+          ))}
+        </Box>
       </Box>
     </Box>
   );
